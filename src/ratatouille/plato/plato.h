@@ -13,4 +13,5 @@ typedef struct plato
 } Plato;
 
 Plato* plato_init(int id, int precio);
+void imprimir_plato(Plato* plato, FILE* output_file);
 void liberar_plato(Plato* plato);

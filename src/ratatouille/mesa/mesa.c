@@ -71,6 +71,55 @@ void estado_mesa(Mesa* mesa, FILE* output_file)
     fprintf(output_file, "FIN ESTADO\n");
 }
 
+void generar_boleta(Mesa* mesa, FILE* output_file)
+{   
+    Cliente* cliente_menor_gasto = NULL;
+    Cliente* cliente_mayor_gasto = NULL;
+    Cliente* cliente_mas_platos = NULL;
+    int precio_total = 0;
+
+    fprintf(output_file, "BOLETA MESA %d\n", mesa->id);
+    fprintf(output_file, "\tPEDIDOS\n");
+    for (size_t i = 0; i < mesa->capacidad; i++)
+    {
+        if (mesa->clientes[i])
+        {   
+            Cliente* cliente = mesa->clientes[i];
+            if (!cliente_menor_gasto)
+            {
+                cliente_menor_gasto = cliente;
+                cliente_mayor_gasto = cliente;
+                cliente_mas_platos = cliente;
+            }
+            else
+            {
+                if (cliente->cuenta < cliente_menor_gasto->cuenta)
+                {
+                    cliente_menor_gasto = cliente;
+                }
+                if (cliente->cuenta > cliente_mayor_gasto->cuenta)
+                {
+                    cliente_mayor_gasto = cliente;
+                }
+                if (cliente->cant_platos > cliente_mas_platos->cant_platos)
+                {
+                    cliente_mas_platos = cliente;
+                }
+            }
+            precio_total += cliente->cuenta;
+            
+            imprimir_cliente(cliente, output_file);
+        }
+    }
+    
+    fprintf(output_file, "\tFIN PEDIDOS\n");
+    fprintf(output_file, "\tEL CLIENTE %d PIDIO MAS PLATOS\n", cliente_mas_platos->id);
+    fprintf(output_file, "\tEL CLIENTE %d GASTO MAS\n", cliente_mayor_gasto->id);
+    fprintf(output_file, "\tEL CLIENTE %d GASTO MENOS\n", cliente_menor_gasto->id);
+    fprintf(output_file, "\tTOTAL %d\n", precio_total);
+    fprintf(output_file, "FIN BOLETA\n");
+}
+
 // void ingresar_anden(Anden* anden, Pasajero* pasajero)
 // {
 //     int largo;

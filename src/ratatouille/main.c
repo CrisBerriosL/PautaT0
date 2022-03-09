@@ -114,7 +114,6 @@ int main(int argc, char **argv)
     }
     else if (string_equals(command, "ORDER-CREATE"))
     {
-      printf("Evento: ORDER-CREATE\n");
       int location_id, table_id, customer_id, item_id;
       fscanf(input_file, "%d %d %d %d", &location_id, &table_id, &customer_id, &item_id);
 
@@ -138,7 +137,8 @@ int main(int argc, char **argv)
       int location_id, table_id;
       fscanf(input_file, "%d %d", &location_id, &table_id);
 
-
+      Mesa* mesa = restaurants[location_id]->mesas[table_id];
+      generar_boleta(mesa, output_file);
     }
   //   else if (string_equals(command, "PASAJERO"))
   //   {
