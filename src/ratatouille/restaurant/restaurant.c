@@ -12,6 +12,13 @@ Restaurant* restaurant_init(int id_restaurant, int cant_mesas)
     return restaurant;
 }
 
+void estado_restaurant(Restaurant* restaurant, FILE* output_file)
+{
+    for (int i = 0; i < restaurant->cant_mesas; i++)
+    {
+        estado_mesa(restaurant->mesas[i], output_file);
+    }
+}
 
 // void imprimir_estacion(Anden*** estaciones, int id_estacion, int n_estaciones, FILE *output_file){
 

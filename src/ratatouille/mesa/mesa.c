@@ -33,7 +33,22 @@ void sentar_cliente(Mesa* mesa, int id_cliente)
             return;
         }   
     }
-};
+}
+
+Cliente* buscar_cliente(Mesa* mesa, int id_cliente)
+{
+    for (int i = 0; i < mesa->cant_clientes; i++)
+    {
+        if (mesa->clientes[i])
+        {   
+            Cliente* cliente = mesa->clientes[i];
+            if (cliente->id == id_cliente)
+            {
+                return cliente;
+            }
+        }
+    }
+}
 
 void estado_mesa(Mesa* mesa, FILE* output_file)
 {

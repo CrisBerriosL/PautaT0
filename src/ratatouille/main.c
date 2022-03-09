@@ -112,6 +112,34 @@ int main(int argc, char **argv)
       Mesa* mesa = restaurants[location_id]->mesas[table_id];
       estado_mesa(mesa, output_file);
     }
+    else if (string_equals(command, "ORDER-CREATE"))
+    {
+      printf("Evento: ORDER-CREATE\n");
+      int location_id, table_id, customer_id, item_id;
+      fscanf(input_file, "%d %d %d %d", &location_id, &table_id, &customer_id, &item_id);
+
+      int precio = platos[item_id]->precio;
+      Plato* plato = plato_init(item_id, precio);
+      Mesa* mesa = restaurants[location_id]->mesas[table_id];
+      Cliente* cliente = buscar_cliente(mesa, customer_id);
+      crear_pedido(cliente, plato);
+    }
+    else if (string_equals(command, "ORDER-CANCEL"))
+    {
+      int location_id, table_id, customer_id;
+      fscanf(input_file, "%d %d %d", &location_id, &table_id, &customer_id);
+
+      Mesa* mesa = restaurants[location_id]->mesas[table_id];
+      Cliente* cliente = buscar_cliente(mesa, customer_id);
+      cancelar_pedido(cliente);
+    }
+    else if (string_equals(command, "BILL-CREATE"))
+    {
+      int location_id, table_id;
+      fscanf(input_file, "%d %d", &location_id, &table_id);
+
+
+    }
   //   else if (string_equals(command, "PASAJERO"))
   //   {
   //      //printf("------------CALLEARON PASAJERO------------ \n");
@@ -237,7 +265,12 @@ int main(int argc, char **argv)
   //   imprimir_estacion(estaciones, id_estacion, n_restaurants, output_file);
   // }
 
-
+  /*  Imprimimos el estado de todas las mesas   */
+  for (int i = 0; i < n_restaurants; i++)
+  {
+    estado_restaurant(restaurants[i], output_file);
+  }
+  
 
   /*  Liberamos nuestras estructuras */
   for (int i = 0; i < n_restaurants; i++)

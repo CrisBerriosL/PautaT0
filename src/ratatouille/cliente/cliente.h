@@ -14,4 +14,6 @@ typedef struct cliente
 } Cliente;
 
 Cliente* cliente_init(int id);
+void crear_pedido(Cliente* cliente, Plato* plato);
+void cancelar_pedido(Cliente* cliente);
 void liberar_cliente(Cliente* cliente);

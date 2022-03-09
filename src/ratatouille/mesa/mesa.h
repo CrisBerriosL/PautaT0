@@ -18,6 +18,7 @@ typedef struct mesa
 
 Mesa* mesa_init(int id_mesa, int capacidad);
 void sentar_cliente(Mesa* mesa, int id_cliente);
+Cliente* buscar_cliente(Mesa* mesa, int id_cliente);
 void estado_mesa(Mesa* mesa, FILE* output_file);
 void liberar_mesa(Mesa* mesa);
 
